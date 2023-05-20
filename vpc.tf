@@ -91,7 +91,7 @@ resource "aws_nat_gateway" "main" {
   count         = "${(1 - var.use_nat_instances) * length(var.internal_subnets)}"
   allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
   subnet_id     = "${element(aws_subnet.external.*.id, count.index)}"
-  depends_on    = ["aws_internet_gateway.main"]
+  depends_on    = [aws_internet_gateway.main]
 }
 
 resource "aws_eip" "nat" {
